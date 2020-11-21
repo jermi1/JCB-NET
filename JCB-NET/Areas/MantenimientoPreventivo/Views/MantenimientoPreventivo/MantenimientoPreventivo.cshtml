@@ -1,0 +1,317 @@
+﻿@model IEnumerable<PlanMO>
+@{
+    ViewData["Title"] = "MantenimientoPreventivo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<SelectListItem> listaEstado = ViewBag.listaEstado;
+    var hora = DateTime.Now.AddYears(1).ToString("dd-MM-yyyy");
+}
+
+<div class="right_col" role="main">
+    <div class="w-100 text-center d-inline-block">
+        <h1>Planes de Mantenimiento</h1>
+    </div>
+    <div class="x_panel">
+        <form id="frmReporte">
+            <div class="text-right">
+                <button type="button" class="btn btn-outline-info" data-toggle="modal"
+                        data-target="#exampleModal" onclick="Abrir(0)">
+                    <i class="fa fa-plus">
+
+                    </i>
+                </button>
+            </div>
+            <table class="table" id="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th># Plan</th>
+                        <th>@Html.DisplayNameFor(model => model.NombrePlan)</th>
+                        <th>@Html.DisplayNameFor(model => model.nombreEstado)</th>
+                        <th>@Html.DisplayNameFor(model => model.FechaCreacion)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tbDatos">
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="text-center w-100">
+                    <h4 class="modal-title" id="lblTitulo"></h4>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nombre de Plan de Mantenimiento</label>
+                    <input type="text" id="txtIdDoctor"
+                           class="form-control enviar" name="nombrePlan" />
+                </div>
+
+                <div class="form-group">
+                    <label>Estado</label>
+                    @Html.DropDownList("Id_EstadoPlan", listaEstado,
+                   new { @class = "form form-control enviar" })
+                </div>
+                @*<div class="form-group">
+                         <label>Nombre Especialidad</label>
+                         @Html.DropDownList("iidEspecialidad", listaEspecialidad,
+                    new { @class = "form form-control enviar" })
+                     </div>*@
+
+                <div class="form-group">
+                    <label>Fecha Creacion</label>
+                    <label type="text" id="dtFechaCreacion" readonly
+                           class="form-control" name="fechaCreacion">@hora</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" onclick="Guardar()">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnCerrar">
+
+                        Cancelar
+                    </button>
+                </div>
+                <div id="divError">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @section Scripts{
+        <script src="~/js/sweetalert.js"></script>
+        <script src="~/js/generic.js"></script>
+        <script>
+            var nombreTabla = "";
+            //$(function () {
+            //    $("#dtFechaCreacion").datepicker({
+            //        dateFormat: "dd/mm/yy",
+            //        changeYear: true
+            //    });
+            //});
+
+            function filtrarNom() {
+                var nomcompleto = document.getElementById("txtnc").value;
+                //pintar("Doctor/listarPersonaDoctor/?nombreCompleto="+nomcompleto,
+                //	["iidPersona", "nombreCompleto"], "iidPersona",
+                //	"Persona", false, false, "tbDatosPopup", "tablaPopup", "nombreCompleto")
+                if (nombreTabla == "Persona") {
+                    pintarMultiplePopup("divTabla",
+                        "Doctor/listarPersonaDoctor/?nombreCompleto=" + nomcompleto,
+                        ["Id", "Nombre Completo"], ["iidPersona", "nombreCompleto"],
+                        "iidPersona", "nombreCompleto");
+                } else if (nombreTabla == "Sede") {
+                    pintarMultiplePopup("divTabla", "Sede/listarSede/?nombreSede=" + nomcompleto,
+                        ["Id", "Nombre Sede"], ["iidSede", "nombreSede"],
+                        "iidSede", "nombreSede");
+                } else if (nombreTabla == "Especialidad") {
+                    pintarMultiplePopup("divTabla",
+                        "Especialidad/buscarEspecialidad/?nombreEspecialidad=" + nomcompleto,
+                        ["Id", "Nombre Completo"], ["iidespecialidad", "nombre"],
+                        "iidespecialidad", "nombre");
+                }
+            }
+
+            function AbrirSubPopupNombreEspecialidad() {
+                nombreTabla = "Especialidad";
+                document.getElementById("lblSubPopup").innerHTML = "Buscar Especialidad";
+                //pintar("Doctor/listarPersonaDoctor",
+                //	["iidPersona", "nombreCompleto"], "iidPersona",
+                //	"Persona", false, false, "tbDatosPopup", "tablaPopup", "nombreCompleto")
+                document.getElementById("txtnc").value = "";
+                pintarMultiplePopup("divTabla", "Especialidad/buscarEspecialidad",
+                    ["Id", "Nombre Completo"], ["iidespecialidad", "nombre"],
+                    "iidespecialidad", "nombre");
+            }
+
+            function AbrirSubPopup() {
+                nombreTabla = "Persona";
+                document.getElementById("lblSubPopup").innerHTML = "Buscar Persona";
+                //pintar("Doctor/listarPersonaDoctor",
+                //	["iidPersona", "nombreCompleto"], "iidPersona",
+                //	"Persona", false, false, "tbDatosPopup", "tablaPopup", "nombreCompleto")
+                document.getElementById("txtnc").value = "";
+                pintarMultiplePopup("divTabla", "Doctor/listarPersonaDoctor",
+                    ["Id", "Nombre Completo"], ["iidPersona", "nombreCompleto"],
+                    "iidPersona", "nombreCompleto");
+            }
+
+            function AbrirSubPopupNombreSede() {
+                nombreTabla = "Sede";
+                document.getElementById("lblSubPopup").innerHTML = "Buscar Sede";
+                //pintar("Sede/listarSede",
+                //	["iidSede", "nombreSede"], "iidSede",
+                //	"Sede", false, false, "tbDatosPopup", "tablaPopup", "nombreSede")
+                document.getElementById("txtnc").value = "";
+                pintarMultiplePopup("divTabla", "Sede/listarSede",
+                    ["Id", "Nombre Sede"], ["iidSede", "nombreSede"],
+                    "iidSede", "nombreSede");
+            }
+
+            function listar() {
+                var url = "listarPlan";
+
+                pintar(url,
+                    ["id_PlanMantenimientoPreventivo","nombrePlan", "nombreEstado", "fechaCreacion"],
+                    "id_PlanMantenimientoPreventivo", "MantenimientoPreventivo", true);
+            }
+
+            window.onload = function () {
+                listar();
+            }
+
+            function AsignarNombre(id, nom) {
+                //alert(id + "-" + nom);
+                if (nombreTabla == "Persona") {
+                    document.getElementById("txtNombrePersonaPopup").value = nom;
+                    document.getElementById("txtIdPersonaPopup").value = id;
+                } else if (nombreTabla == "Sede") {
+                    document.getElementById("txtNombreSedePopup").value = nom;
+                    document.getElementById("iidSede").value = id;
+                } else if (nombreTabla == "Especialidad") {
+                    document.getElementById("txtNombreEspecialidadPopup").value = nom;
+                    document.getElementById("iidEspecialidad").value = id;
+                }
+                document.getElementById("btnCerrarPopup").click();
+            }
+
+            function Guardar() {
+                var frm = new FormData();
+                enviar(frm);
+                $.ajax({
+                    type: "POST",
+                    url: "guardarDatos",
+                    data: frm,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (data == "OK") {
+                            correcto("¡Se guardo el Plan de mantenimiento con Exito!");
+                            document.getElementById("btnCerrar").click();
+                            var url = "listarPlan";
+                            listar();
+                        } else {
+                            error("¡Ocurrio un error al guardar!")
+                            document.getElementById("divError").innerHTML = data;
+                        }
+                    }
+                })
+            }
+
+            function Buscar() {
+                var nombre = document.getElementById("nombre").value;
+                var url = "Doctor/listarDoctor/?nombreCompleto=" + nombre;
+                pintar(url,
+                    ["nombreCompleto", "especialidad", "nombreSede"],
+                    "iidDoctor", "Doctor", true);
+                //var contenido = "";
+                //var tbody = document.getElementById("tbDatos");
+
+                //	$.get("Especialidad/buscarEspecialidad/?nombreEspecialidad=" + nombre, function (data) {
+
+                //		for (var i = 0; i < data.length; i++) {
+                //			contenido += "<tr>";
+                //			contenido += "<td>" + data[i].iidespecialidad + "</td>";
+                //			contenido += "<td>" + data[i].nombre + "</td>";
+                //			contenido += "<td>" + data[i].descripcion + "</td>";
+                //			contenido += `
+                //			<td>
+
+                //				<i class="fa fa-trash btn btn-danger" aria-hidden="true"
+                //				   onclick="EliminarEspecialidad(${data[i].iidespecialidad})">
+
+                //				</i>
+
+                //				<a class="fa fa-edit btn btn-primary" aria-hidden="true"
+                //				   asp-controller="Pagina" asp-action="Editar"
+                //				   asp-route-id="${data[i].iidespecialidad}">
+
+                //				</a>
+
+                //			</td>
+                //               `
+                //			contenido += "</tr>";
+                //		}
+
+
+                //		tbody.innerHTML = contenido;
+                //	})
+
+            }
+
+
+
+
+
+
+            function Limpiar() {
+                document.getElementById("nombre").value = "";
+                //document.getElementById("frmFormulario").submit();
+                var url = "Doctor/listarDoctor";
+                pintar(url,
+                    ["nombreCompleto", "especialidad", "nombreSede"],
+                    "iidDoctor", "Doctor", true);
+            }
+
+            function Eliminar(id) {
+
+                mostrarModal().then(res => {
+                    if (res.value) {
+                        //var frmEnviarEliminar = document.getElementById("frmEnviarEliminar");
+                        //frmEnviarEliminar.submit();
+                        $.get("Doctor/eliminar/?id=" + id, function (rpta) {
+
+                            if (rpta == 1) {
+                                correcto("Se elimino correctamente la especialidad");
+                                listar();
+                            } else {
+                                error("Ocurrio un error al eliminar");
+                            }
+                        })
+                    }
+
+                })
+
+            }
+
+
+            function Abrir(id) {
+                LimpiarDatos();
+                document.getElementById("divError").innerHTML = "";
+                if (id != 0) {
+                    document.getElementById("lblTitulo").innerHTML = "Editar Plan de Mantenimiento";
+                    $.get("Doctor/recuperarDoctor/?id=" + id, function (data) {
+                        obj("txtIdDoctor", data.iidDoctor);
+                        obj("txtIdPersonaPopup", data.iidPersona);
+                        obj("txtNombrePersonaPopup", data.nombreCompleto);
+                        obj("iidSede", data.iidSede);
+                        obj("iidEspecialidad", data.iidEspecialidad);
+                        obj("txtSueldo", data.sueldo);
+                        obj("dtFechaContrato", data.fechaContratoCadena);
+                        obj("txtNombreSedePopup", data.nombreSede);
+                        obj("txtNombreEspecialidadPopup", data.especialidad);
+                    });
+                    document.getElementById("divPersona").style.display = "none";
+                } else {
+                    // document.getElementById("divPersona").style.display = "block";
+                    document.getElementById("lblTitulo").innerHTML = "Agregar Plan de Mantenimiento";
+                }
+            }
+
+        </script>
+    }
+

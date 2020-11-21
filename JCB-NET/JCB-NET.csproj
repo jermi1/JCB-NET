@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-JCB_NET-09656AEE-C70A-465C-8221-E73151E1D02A</UserSecretsId>
+    <RootNamespace>JCB_NET</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\recursos\**" />
+    <Content Remove="wwwroot\recursos\**" />
+    <EmbeddedResource Remove="wwwroot\recursos\**" />
+    <None Remove="wwwroot\recursos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20201107085751_T_Tipo_DOcumentoandApplicationUserMasNroDoc.cs" />
+    <Compile Remove="Data\Migrations\20201107085751_T_Tipo_DOcumentoandApplicationUserMasNroDoc.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201107085923_T_Tipo_DOcumentoandApplicationUserMasNroD.cs" />
+    <Compile Remove="Data\Migrations\20201107085923_T_Tipo_DOcumentoandApplicationUserMasNroD.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201110210146_tablasForGestionarPlanYOss.cs" />
+    <Compile Remove="Data\Migrations\20201110210146_tablasForGestionarPlanYOss.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201112171836_fechafin.cs" />
+    <Compile Remove="Data\Migrations\20201112171836_fechafin.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\MantenimientoPreventivo\Data\" />
+    <Folder Include="Areas\Usuarios\Data\" />
+    <Folder Include="wwwroot\img\logo\" />
+  </ItemGroup>
+
+</Project>

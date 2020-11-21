@@ -1,0 +1,283 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject JCB_NET.Data.ApplicationDbContext context
+@{
+ //   var UsuarioImagen = SignInManager.IsSignedIn(User) ? UserManager.GetUserName(User) + ".png" : null;
+   // var user = SignInManager.IsSignedIn(User) ? UserManager.GetUserId(User) : null;
+   // var tuser = SignInManager.IsSignedIn(User) ? context.TUsuarios.Where(u => u.IdUser == user).ToList() : null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - JCB_NET</title>
+    <!-- Bootstrap -->
+    <link href="~/Tema/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+    <!-- Font Awesome -->
+    <link href="~/Tema/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/Tema/vendors/nprogress/nprogress.css" rel="stylesheet">
+
+
+
+    <!-- Custom Theme Style -->
+    <link href="~/Tema/build/css/custom.min.css" rel="stylesheet">
+    <link href="~/flaticon/flaticon.css" rel="stylesheet" />
+    <script src="~/lib/jquery/jquery.min.js"></script>
+
+    <link href="~/css/Style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    @*<link href="~/css/paginate.css" rel="stylesheet" />*@
+    @*<link href="~/css/jqueryui.css" rel="stylesheet" />*@
+</head>
+
+
+
+<body class="nav-md">
+
+    <div class="container body">
+        <div class="main_container">
+
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <div class="navbar nav_title" style="border: 0;">
+                            <a href="index.html" class="site_title cont_logo"><img id="logo" class="rounded" src="~/img/logo/LOGO2.PNG" /></a>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <!-- menu profile quick info  imagen en circulo-->
+                        <div class="profile clearfix">
+                            <div class="profile_pic" style="margin-top:18px">
+                                <img @*src="~/img/fotosUpload/Usuarios/@UsuarioImagen"*@ class="img-circle profile_img">
+                            </div>
+                            <div class="profile_info">
+                                <span>Bienvenido,</span>
+                                <h2>@*@tuser[0].Nombre @tuser[0].*@Apellido</h2>
+                                @*<span>@User.Claims.FirstOrDefault(u => u.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role").Value</span>*@
+                            </div>
+                        </div>
+                        <!-- /menu profile quick info imagen en circulo-->
+                    }
+                    <br />
+
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <!-- sidebar menu -->
+                        <div id="sidebar-menu" class="hidden-print main_menu">
+                            <div class="menu_section">
+                                <h3>General</h3>
+                                <ul class="nav side-menu">
+                                    <li id="liUsuario">
+                                        <a><i class="fa fa-home"></i> Gestionar Usuarios <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li id="liu"><a asp-area="Usuarios" asp-controller="Usuarios" asp-action="Usuarios">Usuarios</a></li>
+                                            <li id="lir"><a asp-area="Identity" asp-page="/Account/Register">Roles</a></li>
+                                        </ul>
+                                    </li>
+                                    <li id="li2">
+                                        <a><i class="fa fa-edit"></i> Gestionar Maquina <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a asp-area="Maquinas" asp-controller="Maquinas" asp-action="Maquinas">Maquinas</a></li>
+                                        </ul>
+                                    </li>
+                                    <li id="li3">
+                                        <a><i class="fa fa-desktop"></i>Gestionar Planes de Mantenimiento<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a asp-area="MantenimientoPreventivo" asp-controller="MantenimientoPreventivo" asp-action="MantenimientoPreventivo">Ver Planes</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-table"></i> Gestionar Alquiler <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-bar-chart-o"></i> Gestionar Choferes <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <!-- /sidebar menu -->
+                    }
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <!-- /menu footer buttons -->
+                        <div class="sidebar-footer hidden-small">
+                            <a data-toggle="tooltip" data-placement="top" title="Settings">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Lock">
+                                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                        <!-- /menu footer buttons -->
+                    }
+                </div>
+            </div>
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <!-- top navigation -->
+                <div class="top_nav mb-0">
+                    <div class="nav_menu mb-0">
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <nav class="nav navbar-nav mb-0">
+                            <ul class=" navbar-right">
+                                <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="javascript:;"> Perfil</a>
+                                        <a class="dropdown-item" href="javascript:;">
+                                            <span class="badge bg-red pull-right">50%</span>
+                                            <span>Ajustes</span>
+                                        </a>
+                                        <a class="dropdown-item" href="javascript:;">Ayuda</a>
+                                        <a asp-area="Usuarios" asp-controller="Usuarios" asp-action="CerrarSesion" class="dropdown-item"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesión</a>
+                                    </div>
+                                </li>
+
+                                <li role="presentation" class="nav-item dropdown open">
+                                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-envelope-o"></i>
+                                        <span class="badge bg-green">6</span>
+                                    </a>
+                                    <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+                                        <li class="nav-item">
+                                            <a class="dropdown-item">
+                                                <span class="image"><img src="~/Tema/production/images/jm.jpg" alt="Profile Image" /></span>
+                                                <span>
+                                                    <span>Carlos Aliaga</span>
+                                                    <span class="time">hace 5 minutos</span>
+                                                </span>
+                                                <span class="message">
+                                                    man ya lo subiste al drive?
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="dropdown-item">
+                                                @*  <span class="image"><img src="~/Tema/production/images/media.jpg" alt="Profile Image" /></span>*@
+                                                <span>
+                                                    <span>John Smith</span>
+                                                    <span class="time">3 mins ago</span>
+                                                </span>
+                                                <span class="message">
+                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="dropdown-item">
+                                                @* <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>*@
+                                                <span>
+                                                    <span>John Smith</span>
+                                                    <span class="time">3 mins ago</span>
+                                                </span>
+                                                <span class="message">
+                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="dropdown-item">
+                                                @*   <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>*@
+                                                <span>
+                                                    <span>John Smith</span>
+                                                    <span class="time">3 mins ago</span>
+                                                </span>
+                                                <span class="message">
+                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <div class="text-center">
+                                                <a class="dropdown-item">
+                                                    <strong>See All Alerts</strong>
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- /top navigation -->
+            }
+            @RenderBody()
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <!-- footer content -->
+                <footer>
+                    <div class="pull-right">
+                        JCB-NET - TODOS LOS DERECHOS RESERVADOS 2020 &copy; <a href="https://colorlib.com">JCB Estructuras SAC</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </footer>
+                <!-- /footer content -->
+            }
+
+
+        </div> <!-- /mainContainer -->
+    </div>  <!-- /conteinerBody -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- jQuery -->
+    <script src="~/Tema/vendors/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+    <!-- Bootstrap -->
+    <!--<script src="~/js/bootstrap.js"></script> -->
+    <script src="~/Tema/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!-- funciones -->
+    <!-- FastClick -->
+    <script src="~/Tema/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="~/Tema/vendors/nprogress/nprogress.js"></script>
+
+
+    <!-- Custom Theme Scripts -->
+    <script src="~/Tema/build/js/custom.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/paginate.js" asp-append-version="true"></script> 
+    <!--<script src="~/js/jqueryui.js"></script> -->
+    @*<script src="~/Scripts/Config.js" asp-append-version="true"></script>*@
+
+    @*@await Html.PartialAsync("_notificationPartial")*@
+
+    @RenderSection("Scripts", required: false)
+</body>
+
+
+</html>
