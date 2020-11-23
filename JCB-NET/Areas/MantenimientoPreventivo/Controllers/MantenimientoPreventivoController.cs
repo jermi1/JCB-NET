@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace JCB_NET.Areas.MantenimientoPreventivo.Controllers
 {
     [Area("MantenimientoPreventivo")]
+    [Authorize]
     public class MantenimientoPreventivoController : Controller
     {
         private readonly ApplicationDbContext db;

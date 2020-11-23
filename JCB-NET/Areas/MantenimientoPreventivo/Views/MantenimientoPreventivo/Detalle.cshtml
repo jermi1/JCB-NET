@@ -10,36 +10,61 @@
 
 <div class="right_col" role="main">
     <div class="w-100 text-center d-inline-block">
-        <h1>Tareas del Plan de Mantenimiento #</h1>
+        <h1 class="text-dark">Tareas del Plan de Mantenimiento #</h1>
     </div>
-    <div class="x_panel">
-        <form id="frmReporte">
-            <div class="text-right">
-                <button type="button" class="btn btn-outline-info" data-toggle="modal"
+    <div class="row">
+        <div class="col-2 x_panel contenedorFiltros">
+                <button type="button" class="btn btn-primary mb-3" data-toggle="modal"
                         data-target="#exampleModal" onclick="Abrir(0)">
                     <i class="fa fa-plus">
-
+                        &ensp;  NUEVA TAREA
                     </i>
                 </button>
-            </div>
-            <table class="table" id="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th># Plan</th>
-                        <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-                        <th>@Html.DisplayNameFor(model => model.CodigoMaquina)</th>
-                        <th>@Html.DisplayNameFor(model => model.Periodicidad)</th>
-                        <th>@Html.DisplayNameFor(model => model.Prioridad)</th>
-                        <th>@Html.DisplayNameFor(model => model.FechaInicio)</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="tbDatos">
-                </tbody>
-            </table>
-        </form>
+            <h6 class="text-dark">Prioridad</h6>
+            <a class="text-danger">
+                <i class="fa fa-warning">
+                    &ensp; <span>Alta</span>
+                </i>  
+            </a>
+            <a class="text-info">
+                <i class="fa fa-star-half-o">
+                    &ensp; <span>Media</span>
+                </i> 
+            </a>
+            <a>
+                <i class="fa fa-sort-amount-desc">
+                    &ensp; <span>Baja</span>
+                </i> 
+            </a>
 
+        </div>
+        <div class="col-10">
+            <div class="x_panel">
+                <form id="frmReporte">
+                
+                    <table class="table" id="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th># Plan</th>
+                                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                                <th>@Html.DisplayNameFor(model => model.CodigoMaquina)</th>
+                                <th>@Html.DisplayNameFor(model => model.Periodicidad)</th>
+                                <th>@Html.DisplayNameFor(model => model.Prioridad)</th>
+                                <th>@Html.DisplayNameFor(model => model.FechaInicio)</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbDatos">
+                        </tbody>
+                    </table>
+                </form>
+
+            </div>
+        </div>
     </div>
+
+
+
 </div>
 
 <!-- Modal -->
@@ -174,8 +199,8 @@
                 </button>
             </div>
             <div class="modal-body" id="divModal">
-                <label>Ingrese nombre completo</label>
-                <input type="text" id="txtnc" class="form-control" onkeyup="filtrarNom()"/>
+                @*<label>Ingrese nombre completo</label>
+                <input type="text" id="txtnc" class="form-control" onkeyup="filtrarNom()"/>*@
                 <div id="divTabla">
                     @*<table class="table" id="tablaPopup">
 
@@ -272,7 +297,7 @@
             //pintar("Sede/listarSede",
             //	["iidSede", "nombreSede"], "iidSede",
             //	"Sede", false, false, "tbDatosPopup", "tablaPopup", "nombreSede")
-            document.getElementById("txtnc").value = ""; //filtro de busqueda
+            // document.getElementById("txtnc").value = ""; //filtro de busqueda
             var url = "/suministros/listarSuministro"
             pintarMultiplePopup("divTabla", url ,
                 ["Id", "Nombre Suministro"], ["id_Suministro", "nombre"],

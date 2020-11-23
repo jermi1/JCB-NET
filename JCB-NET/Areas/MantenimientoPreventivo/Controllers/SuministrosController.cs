@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using JCB_NET.Areas.MantenimientoPreventivo.Models;
 using JCB_NET.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JCB_NET.Areas.MantenimientoPreventivo.Controllers
 {
     [Area("MantenimientoPreventivo")]
+    [Authorize]
     public class SuministrosController : Controller
     {
         private readonly ApplicationDbContext db;

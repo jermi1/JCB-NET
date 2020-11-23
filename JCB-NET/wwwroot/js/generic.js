@@ -174,7 +174,7 @@ function pintarMultiplePopup(divTabla, url = "" , cabeceras = ["Id", "Nombre Com
 	$.get(url, function (data) {
 
 		//Esto
-		contenido += "<table id='tablaPopup'>";
+		contenido += "<table id='tablaPopup' class = 'tablasubPopup' >";
 		contenido += "<thead>";
 		contenido += "<tr>";
 		for (var i = 0; i < cabeceras.length; i++) {
@@ -195,12 +195,8 @@ function pintarMultiplePopup(divTabla, url = "" , cabeceras = ["Id", "Nombre Com
 
 			contenido += `
 					<td>
-
-						<i class="fa fa-check btn btn-success" aria-hidden="true"
-						   onclick="AsignarNombre(${objetoActual[propiedadId]},
-                              '${objetoActual[propiedadMostrar]}')">
-
-						</i>
+				       	<input type="checkbox" unchecked name="nombrerecursos"
+						   value="${objetoActual[propiedadMostrar]}" />
 					</td>`;
 
 			contenido += "</tr>";

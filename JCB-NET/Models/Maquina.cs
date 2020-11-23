@@ -28,5 +28,9 @@ namespace JCB_NET.Models
 
         [Column(TypeName = "varchar(25)")]
         public string Peso { get; set; }
+        // crear columna Zona
+
+        [Column(TypeName = "varchar(25)")]
+        public string Zona { get; set; }
     }
 }

@@ -80,3 +80,30 @@ height: 60px
 .cont_logo {
 height:100px;
 }
+.tablasubPopup {
+    width: 100%;
+    margin-left: 25px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.dataTables_filter {
+    display: inline-block;
+    text-align: center;
+    float: right;
+}
+#div_tabla {
+
+}
+.dataTables_length {
+    display: inline-block;
+}
+
+.contenedorFiltros {
+padding-left: 24px;
+padding-top: 20px;
+}
+.contenedorFiltros a{
+display:  block;
+padding:5px;
+}
