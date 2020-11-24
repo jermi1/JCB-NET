@@ -163,9 +163,9 @@
             }
 
             function listar() {
-                var url = "listarPlan";
+                // var url = "/MantenimientoPreventivo/listarPlan";
 
-                pintar(url,
+                pintar('/MantenimientoPreventivo/listarPlan',
                     ["id_PlanMantenimientoPreventivo","nombrePlan", "nombreEstado", "fechaCreacion"],
                     "id_PlanMantenimientoPreventivo", "MantenimientoPreventivo", true);
             }

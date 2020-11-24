@@ -9,6 +9,7 @@ using JCB_NET.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing;
 
 namespace JCB_NET.Areas.MantenimientoPreventivo.Controllers
 {
@@ -186,7 +187,9 @@ namespace JCB_NET.Areas.MantenimientoPreventivo.Controllers
             return View();
         }
 
-        public List<TareaMO> listarTareas()
+
+        // [Route("listarTarea")]
+        public List<TareaMO> listarTarea()
         {
             List<TareaMO> listaTareas = new List<TareaMO>();
 
@@ -215,7 +218,7 @@ namespace JCB_NET.Areas.MantenimientoPreventivo.Controllers
             //}
 
             _listaTareas = listaTareas;
-            return _listaTareas;
+            return listaTareas;
         }
 
     }

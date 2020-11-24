@@ -62,24 +62,21 @@
             </div>
         </div>
     </div>
-
-
-
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="text-center w-100">
-                    <h4 class="modal-title" id="lblTitulo"></h4>
+                    <h4 class="modal-title text-dark" id="lblTitulo"></h4>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body modalCuerpo">
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
@@ -142,42 +139,60 @@
                         </div>
                     </div>
                 </div>
-                <div class="x_panel">
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Suministros</label>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary"
+                                <div class="input-group-append divsumnisTecnic">
+                                    <label >Suministros</label>
+                                    <button class="btn btn-info btnSuminTecnic rounded-circle"
                                             data-toggle="modal"
                                             data-target="#modal" onclick="AbrirSubPopupNombreSede()">
-                                        <i class="fa fa-plus-circle"></i>
+                                        <i class="fa fa-plus"></i>
                                     </button>
+                                </div>
+                                <div class="x_panel areaSumniTec" id="divTbSumnistros">
+                                    @*<table class="table" id="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th># Sumnistro</th>
+                                                <th>Nombre</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbSumnistros">
+                                            
+                                        </tbody>
+                                    </table>*@
+
                                 </div>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="form-group">
-                                <label>Técnicos</label>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary"
+                            <div class="form-group text-center">
+                                <div class="input-group-append divsumnisTecnic">
+                                    <label class="marsumtec">Técnicos</label>
+                                    <button class="btn btn-info btnSuminTecnic rounded-circle"
                                             data-toggle="modal"
-                                            data-target="#modal" onclick="AbrirSubPopupNombreSede()">
-                                       n
-                                        @*<i class="fa fa-plus-circle"></i>*@
+                                            data-target="#modal" onclick="">
+                                        <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
+                                    <div class="x_panel areaSumniTec"></div>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
             <div class="modal-footer">
 
-                <button type="button" class="btn btn-primary" onclick="Guardar()">Guardar</button>
+                <button type="button" class="btn btn-outline-primary" onclick="Guardar()">
+                    <i class="fa fa-save">
+                        &nbsp; Guardar
+                    </i>
+                </button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnCerrar">
-
-                    Cancelar
+                    <i class="fa fa-remove">
+                        &nbsp; Cancelar
+                    </i>
                 </button>
             </div>
             <div id="divError">
@@ -193,7 +208,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="lblSubPopup"></h5>
+                <h5 class="modal-title text-dark" id="lblSubPopup"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -201,21 +216,22 @@
             <div class="modal-body" id="divModal">
                 @*<label>Ingrese nombre completo</label>
                 <input type="text" id="txtnc" class="form-control" onkeyup="filtrarNom()"/>*@
-                <div id="divTabla">
+                <div id="divTabla" class="x_panel tbModal">
+
                     @*<table class="table" id="tablaPopup">
 
 
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Nombre Completo</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbDatosPopup">
-                            </tbody>
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre Completo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tbDatosPopup">
+            </tbody>
 
-                        </table>*@
+        </table>*@
                 </div>
 
             </div>
@@ -223,9 +239,17 @@
             <div class="modal-footer">
 
 
-                <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnCerrarPopup">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnCerrarPopup" onclick="cargarSuministrosSeleccionados()">
+                    <i class="fa fa-check-circle">
+                        &nbsp; Agregar
+                    </i>
+                    
+                </button>
 
-                    Cancelar
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnCerrarPopup">
+                    <i class="fa fa-remove">
+                        &nbsp; Cancelar
+                    </i>
                 </button>
             </div>
 
@@ -234,16 +258,41 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/sweetalert.js"></script>
-    <script src="~/js/generic.js"></script>
-    <script>
+    <script src="~/js/sweetalert.js" asp-append-version="true"></script>
+    <script src="~/js/generic.js" asp-append-version="true"></script>
+    <script asp-append-version="true">
         var nombreTabla = "";
+        var suma = 0;
+        var idcbs = [];
+
         $(function () {
             $("#dtFechaInicio").datepicker({
                 dateFormat: "dd/mm/yy",
                 changeYear: true
             });
         });
+
+
+
+        window.onload = function () {
+            this.console.log("rico rico rcio");
+            var url = "listarTareas";
+
+            this.listar();
+            //pintar('/MantenimientoPreventivo/listarTarea',
+            //    ["id_Tarea", "nombre", "codigoMaquina", "periodicidad", "prioridad", "fechaInicio"],
+            //    "Id_Tarea", "MantenimientoPreventivo", false ,true, "tbDatos","table","",false);
+        }
+
+
+
+        function listar() {
+            var url = "/mantenimientoPreventivo/listarTarea";
+
+            pintar('/MantenimientoPreventivo/listarTarea',
+                ["id_Tarea", "nombre", "codigoMaquina", "periodicidad", "prioridad", "fechaInicio"],
+                "id_Tarea", "MantenimientoPreventivo", true);
+        }
 
         function filtrarNom() {
             var nomcompleto = document.getElementById("txtnc").value;
@@ -267,54 +316,21 @@
             }
         }
 
-        function AbrirSubPopupNombreEspecialidad() {
-            nombreTabla = "Especialidad";
-            document.getElementById("lblSubPopup").innerHTML = "Buscar Especialidad";
-            //pintar("Doctor/listarPersonaDoctor",
-            //	["iidPersona", "nombreCompleto"], "iidPersona",
-            //	"Persona", false, false, "tbDatosPopup", "tablaPopup", "nombreCompleto")
-            document.getElementById("txtnc").value = "";
-            pintarMultiplePopup("divTabla", "Especialidad/buscarEspecialidad",
-                ["Id", "Nombre Completo"], ["iidespecialidad", "nombre"],
-                "iidespecialidad", "nombre");
-        }
-
-        function AbrirSubPopup() {
-            nombreTabla = "Persona";
-            document.getElementById("lblSubPopup").innerHTML = "Buscar Persona";
-            //pintar("Doctor/listarPersonaDoctor",
-            //	["iidPersona", "nombreCompleto"], "iidPersona",
-            //	"Persona", false, false, "tbDatosPopup", "tablaPopup", "nombreCompleto")
-            document.getElementById("txtnc").value = "";
-            pintarMultiplePopup("divTabla", "Doctor/listarPersonaDoctor",
-                ["Id", "Nombre Completo"], ["iidPersona", "nombreCompleto"],
-                "iidPersona", "nombreCompleto");
-        }
 
         function AbrirSubPopupNombreSede() {
             nombreTabla = "Suministro";
-            document.getElementById("lblSubPopup").innerHTML = "Buscar Suministrossss";
+            document.getElementById("lblSubPopup").innerHTML = "Buscar Suministros";
             //pintar("Sede/listarSede",
             //	["iidSede", "nombreSede"], "iidSede",
             //	"Sede", false, false, "tbDatosPopup", "tablaPopup", "nombreSede")
             // document.getElementById("txtnc").value = ""; //filtro de busqueda
-            var url = "/suministros/listarSuministro"
-            pintarMultiplePopup("divTabla", url ,
+            var url = "/Suministros/listarSuministro"
+            pintarMultiplePopup("divTabla", url,
                 ["Id", "Nombre Suministro"], ["id_Suministro", "nombre"],
                 "id_Suministro", "nombre");
         }
 
-        function listar() {
-            var url = "/mantenimientoPreventivo/listarTareas";
 
-            pintar(url,
-                ["id_Tarea", "nombre", "codigoMaquina", "periodicidad", "prioridad", "fechaInicio"],
-                "id_Tarea", "MantenimientoPreventivo", true);
-        }
-
-        window.onload = function () {
-            listar();
-        }
 
         function AsignarNombre(id, nom) {
             //alert(id + "-" + nom);
@@ -354,105 +370,140 @@
             })
         }
 
-        function Buscar() {
-            var nombre = document.getElementById("nombre").value;
-            var url = "Doctor/listarDoctor/?nombreCompleto=" + nombre;
-            pintar(url,
-                ["nombreCompleto", "especialidad", "nombreSede"],
-                "iidDoctor", "Doctor", true);
-            //var contenido = "";
-            //var tbody = document.getElementById("tbDatos");
-
-            //	$.get("Especialidad/buscarEspecialidad/?nombreEspecialidad=" + nombre, function (data) {
-
-            //		for (var i = 0; i < data.length; i++) {
-            //			contenido += "<tr>";
-            //			contenido += "<td>" + data[i].iidespecialidad + "</td>";
-            //			contenido += "<td>" + data[i].nombre + "</td>";
-            //			contenido += "<td>" + data[i].descripcion + "</td>";
-            //			contenido += `
-            //			<td>
-
-            //				<i class="fa fa-trash btn btn-danger" aria-hidden="true"
-            //				   onclick="EliminarEspecialidad(${data[i].iidespecialidad})">
-
-            //				</i>
-
-            //				<a class="fa fa-edit btn btn-primary" aria-hidden="true"
-            //				   asp-controller="Pagina" asp-action="Editar"
-            //				   asp-route-id="${data[i].iidespecialidad}">
-
-            //				</a>
-
-            //			</td>
-            //               `
-            //			contenido += "</tr>";
-            //		}
 
 
-            //		tbody.innerHTML = contenido;
-            //	})
+        function cargarSuministrosSeleccionados() {
+            var cb = "";
+            var suministroSeleccionado = false;
+            var datos = [];
+            if (idcbs == null || idcbs == undefined) {
+            } else if (idcbs == []) {
 
-        }
+            }
+            else {
+                for (var i = 0; i < idcbs.length; i++) {
+                    cb = "cb" + idcbs[i];
+                    let idcb = document.getElementById(cb);
 
-
-
-
-
-
-        function Limpiar() {
-            document.getElementById("nombre").value = "";
-            //document.getElementById("frmFormulario").submit();
-            var url = "Doctor/listarDoctor";
-            pintar(url,
-                ["nombreCompleto", "especialidad", "nombreSede"],
-                "iidDoctor", "Doctor", true);
-        }
-
-        function Eliminar(id) {
-
-            mostrarModal().then(res => {
-                if (res.value) {
-                    //var frmEnviarEliminar = document.getElementById("frmEnviarEliminar");
-                    //frmEnviarEliminar.submit();
-                    $.get("Doctor/eliminar/?id=" + id, function (rpta) {
-
-                        if (rpta == 1) {
-                            correcto("Se elimino correctamente la especialidad");
-                            listar();
-                        } else {
-                            error("Ocurrio un error al eliminar");
-                        }
-                    })
+                    if (idcb.checked) {
+                        datos.push([idcbs[i], idcb.value])
+                        suministroSeleccionado = true;
+                    }
+                    //traer cb checkeds
+                    //invocar a listarSuministros del back
+                    //mostrarlos en el modal
                 }
+            }
 
-            })
-
-        }
-
-
-        function Abrir(id) {
-            LimpiarDatos();
-            document.getElementById("divError").innerHTML = "";
-            if (id != 0) {
-                document.getElementById("lblTitulo").innerHTML = "Editar Plan de Mantenimiento";
-                $.get("Doctor/recuperarDoctor/?id=" + id, function (data) {
-                    obj("txtIdDoctor", data.iidDoctor);
-                    obj("txtIdPersonaPopup", data.iidPersona);
-                    obj("txtNombrePersonaPopup", data.nombreCompleto);
-                    obj("iidSede", data.iidSede);
-                    obj("iidEspecialidad", data.iidEspecialidad);
-                    obj("txtSueldo", data.sueldo);
-                    obj("dtFechaContrato", data.fechaContratoCadena);
-                    obj("txtNombreSedePopup", data.nombreSede);
-                    obj("txtNombreEspecialidadPopup", data.especialidad);
-                });
-                document.getElementById("divPersona").style.display = "none";
-            } else {
-                // document.getElementById("divPersona").style.display = "block";
-                document.getElementById("lblTitulo").innerHTML = "Agregar Plan de Mantenimiento";
+            if (suministroSeleccionado)
+            {
+                pintarGrillaModal("divTbSumnistros", datos , ["Id", "Nombre Suministro"], ["id_Suministro", "nombre"],
+                    "id_Suministro", "nombre");
             }
         }
+
+        function pintarGrillaModal(divTabla = "", data = [],cabeceras = ["Id", "Nombre Completo"],
+            campos, propiedadId, propiedadMostrar = "") {
+
+            var contenido = "";
+            var id = [];
+
+         
+                //Esto
+                contenido += "<table id='tablaRecursos' class = 'tablasubPopup' >";
+                contenido += "<thead class='thead-dark'>";
+                contenido += "<tr>";
+                for (var i = 0; i < cabeceras.length; i++) {
+                    contenido += "<th>" + cabeceras[i] + "</th>"
+                }
+                contenido += "<th></th>";
+                contenido += "</tr>";
+                contenido += "</thead>";
+                contenido += "<tbody>";
+                var objetoActual;
+                for (var i = 0; i < data.length; i++) {
+                    contenido += "<tr>";
+                    for (var j = 0; j < campos.length; j++) {
+                        nombreCampo = campos[j];
+                        objetoActual = data[i];
+                        contenido += "<td>" + objetoActual[j] + "</td>"
+                    }
+                 
+                    contenido += `
+					<td>
+				      	<i class="fa fa-remove btn btn-outline-danger" aria-hidden="true"
+						   onclick="Eliminar(${objetoActual[propiedadId]})">
+						</i>
+					</td>`;
+
+                    contenido += "</tr>";
+                }
+                contenido += "</tbody>";
+                contenido += "</table>";
+                document.getElementById(divTabla).innerHTML = contenido;
+            $('#tablaRecursos').DataTable();
+
+            document.getElementById("tablaRecursos_length").style.display = 'none';
+            
+
+
+        }
+
+
+
+            //function Limpiar() {
+            //    document.getElementById("nombre").value = "";
+            //    //document.getElementById("frmFormulario").submit();
+            //    var url = "Doctor/listarDoctor";
+            //    pintar(url,
+            //        ["nombreCompleto", "especialidad", "nombreSede"],
+            //        "iidDoctor", "Doctor", true);
+            //}
+
+            //function Eliminar(id) {
+
+            //    mostrarModal().then(res => {
+            //        if (res.value) {
+            //            //var frmEnviarEliminar = document.getElementById("frmEnviarEliminar");
+            //            //frmEnviarEliminar.submit();
+            //            $.get("Doctor/eliminar/?id=" + id, function (rpta) {
+
+            //                if (rpta == 1) {
+            //                    correcto("Se elimino correctamente la especialidad");
+            //                    listar();
+            //                } else {
+            //                    error("Ocurrio un error al eliminar");
+            //                }
+            //            })
+            //        }
+
+            //    })
+
+            //}
+
+
+            //function Abrir(id) {
+            //    LimpiarDatos();
+            //    document.getElementById("divError").innerHTML = "";
+            //    if (id != 0) {
+            //        document.getElementById("lblTitulo").innerHTML = "Editar Plan de Mantenimiento";
+            //        $.get("Doctor/recuperarDoctor/?id=" + id, function (data) {
+            //            obj("txtIdDoctor", data.iidDoctor);
+            //            obj("txtIdPersonaPopup", data.iidPersona);
+            //            obj("txtNombrePersonaPopup", data.nombreCompleto);
+            //            obj("iidSede", data.iidSede);
+            //            obj("iidEspecialidad", data.iidEspecialidad);
+            //            obj("txtSueldo", data.sueldo);
+            //            obj("dtFechaContrato", data.fechaContratoCadena);
+            //            obj("txtNombreSedePopup", data.nombreSede);
+            //            obj("txtNombreEspecialidadPopup", data.especialidad);
+            //        });
+            //        document.getElementById("divPersona").style.display = "none";
+            //    } else {
+            //        // document.getElementById("divPersona").style.display = "block";
+            //        document.getElementById("lblTitulo").innerHTML = "Agregar Plan de Mantenimiento";
+            //    }
+            //}
 
     </script>
 }

@@ -107,3 +107,41 @@ padding-top: 20px;
 display:  block;
 padding:5px;
 }
+
+.modal-content {
+    background: #F7F7F7;
+}
+
+.divsumnisTecnic {
+ position: relative;
+}
+
+.btnSuminTecnic {
+ position: absolute;
+ left: 65%;
+ right: 0%;
+}
+
+.modalCuerpo {
+  padding: 25px;
+}
+
+.modalCuerpo input{
+    height: 28px;
+}
+.modalCuerpo select {
+    height: 28px;
+    padding: 4px;
+
+}
+.modalCuerpo textarea {
+  height: 45px;
+  margin-bottom: 15px;
+}
+
+.areaSumniTec {
+  min-height: 65px;
+}
+.tbModal {
+ padding: 22px;
+}

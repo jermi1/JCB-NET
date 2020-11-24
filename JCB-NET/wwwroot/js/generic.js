@@ -81,7 +81,7 @@ function ExportarPDF(nombreController) {
 }
 
 
-function pintar(url, campos, propiedadId, nombreController,
+function pintar(url="", campos, propiedadId, nombreController,
 	popup = false, opciones = true, id = "tbDatos", idTabla = "table", propiedadMostrar = "", verDetalle = true) {
 	var contenido = "";
 	if (id == null || id == undefined || id == "") {
@@ -93,7 +93,6 @@ function pintar(url, campos, propiedadId, nombreController,
 	var nombreCampo;
 	var objetoActual;
 	$.get(url, function (data) {
-
 		for (var i = 0; i < data.length; i++) {
 			contenido += "<tr>";
 			for (var j = 0; j < campos.length; j++) {
@@ -169,13 +168,14 @@ function pintar(url, campos, propiedadId, nombreController,
 
 function pintarMultiplePopup(divTabla, url = "" , cabeceras = ["Id", "Nombre Completo"],
 	campos, propiedadId, propiedadMostrar = "") {
-
+	
 	var contenido = "";
-	$.get(url, function (data) {
+	var id = [];   
 
+	$.get(url, function (data) {
 		//Esto
 		contenido += "<table id='tablaPopup' class = 'tablasubPopup' >";
-		contenido += "<thead>";
+		contenido += "<thead class='thead-dark'>";
 		contenido += "<tr>";
 		for (var i = 0; i < cabeceras.length; i++) {
 			contenido += "<th>" + cabeceras[i] + "</th>"
@@ -192,11 +192,18 @@ function pintarMultiplePopup(divTabla, url = "" , cabeceras = ["Id", "Nombre Com
 				objetoActual = data[i];
 				contenido += "<td>" + objetoActual[nombreCampo] + "</td>"
 			}
-
+			suma = data.length;
+			if (idcbs.length <= 0 || i != 0) { // no contiene datos o no es el primero
+				idcbs.push(objetoActual['id_Suministro']);
+			} else
+			{
+				idcbs = [];
+				idcbs.push(objetoActual['id_Suministro']);
+			}
 			contenido += `
 					<td>
-				       	<input type="checkbox" unchecked name="nombrerecursos"
-						   value="${objetoActual[propiedadMostrar]}" />
+				       	<input type="checkbox"  name="nombrerecursos"
+						   value="${objetoActual[propiedadMostrar]}" id="${'cb'+ objetoActual['id_Suministro']}" />
 					</td>`;
 
 			contenido += "</tr>";
@@ -209,6 +216,11 @@ function pintarMultiplePopup(divTabla, url = "" , cabeceras = ["Id", "Nombre Com
 
 
 }
+
+//function pintarGrillaModal()
+//{
+
+//}
 
 function correcto(title = "Se elimino correctamente") {
 
