@@ -77,5 +77,11 @@ namespace JCB_NET.Areas.MantenimientoPreventivo.Models
         [Required(ErrorMessage = "Seleccione el codigo de la maquina")]
         public int? Id_Maquina { get; set; }
 
+        [Required(ErrorMessage = "Seleccione los suministros que se utilizaran")]
+        public List<int> Suministros { get; set; }
+
+        [Required(ErrorMessage = "Seleccione los técnicos para la tarea")]
+        public List<int> Tecnicos { get; set; }
+
     }
 }

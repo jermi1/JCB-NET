@@ -14,34 +14,33 @@
     </div>
     <div class="row">
         <div class="col-2 x_panel contenedorFiltros">
-                <button type="button" class="btn btn-primary mb-3" data-toggle="modal"
-                        data-target="#exampleModal" onclick="Abrir(0)">
-                    <i class="fa fa-plus">
-                        &ensp;  NUEVA TAREA
-                    </i>
-                </button>
+            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModalScrollable" onclick="Abrir(0)">
+                <i class="fa fa-plus">
+                    &ensp;  NUEVA TAREA
+                </i>
+            </button>
             <h6 class="text-dark">Prioridad</h6>
             <a class="text-danger">
                 <i class="fa fa-warning">
                     &ensp; <span>Alta</span>
-                </i>  
+                </i>
             </a>
             <a class="text-info">
                 <i class="fa fa-star-half-o">
                     &ensp; <span>Media</span>
-                </i> 
+                </i>
             </a>
             <a>
                 <i class="fa fa-sort-amount-desc">
                     &ensp; <span>Baja</span>
-                </i> 
+                </i>
             </a>
 
         </div>
         <div class="col-10">
             <div class="x_panel">
                 <form id="frmReporte">
-                
+
                     <table class="table" id="table">
                         <thead class="thead-dark">
                             <tr>
@@ -64,9 +63,11 @@
     </div>
 </div>
 
+
+
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable  modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="text-center w-100">
@@ -82,7 +83,7 @@
                         <div class="form-group">
                             <label>Nombre de Tarea</label>
                             <input type="text" id="txtIdDoctor"
-                                   class="form-control enviar" name="nombreTarea" />
+                                   class="form-control enviar" name="nombre" />
                         </div>
 
                         <div class="form-group">
@@ -93,13 +94,15 @@
 
                         <div class="form-group">
                             <label>Duracion Estimada</label>
-                            <input type="text" id=""
-                                   class="form-control enviar" name="duracionEstimada " />
+                            <input type="text" 
+                                   class="form-control enviar" name="duracionEstimada" />
                         </div>
                         <div class="form-group">
                             <label>Fecha Inicio</label>
-                            <input type="datetime" id="dtFechaInicio"
-                                   class="form-control" name="fechaInicio" />
+                            <input type="date" id="dtFechaInicio"
+                                   class="form-control enviar" name="fechaInicio" />
+                            <input type="hidden" id="inputSuministros" />
+                            <input type="hidden" id="inputTecnicos" />
                         </div>
 
                     </div>
@@ -112,10 +115,11 @@
                         </div>
                         <div class="form-group">
                             <label>Prioridad</label>
-                            <select class="form form-control" name="prioridad">
-                                <option value="value2">Baja</option>
-                                <option value="value3">Media</option>
-                                <option value="value3">Alta</option>
+                            <select class="form form-control enviar" name="prioridad">
+                                <option>--Seleccione--</option>
+                                <option value="Alta">Alta</option>
+                                <option value="Media">Media</option>
+                                <option value="Baja">Baja</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -126,7 +130,7 @@
                         <div class="form-group">
                             <label>Clasificación</label>
                             <input type="text" id=""
-                                   class="form-control enviar" name="duracionEstimada " />
+                                   class="form-control enviar" name="clasificacion" />
                         </div>
 
                     </div>
@@ -139,19 +143,19 @@
                         </div>
                     </div>
                 </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <div class="input-group-append divsumnisTecnic">
-                                    <label >Suministros</label>
-                                    <button class="btn btn-info btnSuminTecnic rounded-circle"
-                                            data-toggle="modal"
-                                            data-target="#modal" onclick="AbrirSubPopupNombreSede()">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                                <div class="x_panel areaSumniTec" id="divTbSumnistros">
-                                    @*<table class="table" id="table">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <div class="input-group-append divsumnisTecnic">
+                                <h6><strong class="text-dark">Suministros a Utilizar</strong></h6>
+                                <button class="btn btn-primary btnSuminTecnic rounded-circle"
+                                        data-toggle="modal"
+                                        data-target="#modal" onclick="AbrirSubPopupSuministros()">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="card areaSumniTec" id="divTbSumnistros" style="padding: 25px;">
+                                @*<table class="table" id="table">
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th># Sumnistro</th>
@@ -160,27 +164,29 @@
                                             </tr>
                                         </thead>
                                         <tbody id="tbSumnistros">
-                                            
+
                                         </tbody>
                                     </table>*@
 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group text-center">
-                                <div class="input-group-append divsumnisTecnic">
-                                    <label class="marsumtec">Técnicos</label>
-                                    <button class="btn btn-info btnSuminTecnic rounded-circle"
-                                            data-toggle="modal"
-                                            data-target="#modal" onclick="">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                                    <div class="x_panel areaSumniTec"></div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-6">
+                        <div class="form-group text-center">
+                            <div class="input-group-append divsumnisTecnic">
+                                <h6> <strong class="text-dark">Técnicos para la Tarea</strong> </h6>
+                                <button class="btn btn-primary btnSuminTecnic rounded-circle"
+                                        data-toggle="modal"
+                                        data-target="#modal" onclick="AbrirSubPopupTecnicos()">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="x_panel areaSumniTec" id="divTbTecnicos" style="padding: 25px;">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
 
@@ -215,23 +221,23 @@
             </div>
             <div class="modal-body" id="divModal">
                 @*<label>Ingrese nombre completo</label>
-                <input type="text" id="txtnc" class="form-control" onkeyup="filtrarNom()"/>*@
+                    <input type="text" id="txtnc" class="form-control" onkeyup="filtrarNom()"/>*@
                 <div id="divTabla" class="x_panel tbModal">
 
                     @*<table class="table" id="tablaPopup">
 
 
-            <thead class="thead-dark">
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre Completo</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="tbDatosPopup">
-            </tbody>
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre Completo</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbDatosPopup">
+                            </tbody>
 
-        </table>*@
+                        </table>*@
                 </div>
 
             </div>
@@ -239,11 +245,11 @@
             <div class="modal-footer">
 
 
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnCerrarPopup" onclick="cargarSuministrosSeleccionados()">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnCerrarPopup" onclick="cargarRecursosSeleccionados(nombreTabla)">
                     <i class="fa fa-check-circle">
                         &nbsp; Agregar
                     </i>
-                    
+
                 </button>
 
                 <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnCerrarPopup">
@@ -265,17 +271,14 @@
         var suma = 0;
         var idcbs = [];
 
-        $(function () {
-            $("#dtFechaInicio").datepicker({
-                dateFormat: "dd/mm/yy",
-                changeYear: true
-            });
-        });
-
-
+        //$(function () {
+        //    $("#dtFechaInicio").datepicker({
+        //        dateFormat: "dd/mm/yy",
+        //        changeYear: true
+        //    });
+        //});
 
         window.onload = function () {
-            this.console.log("rico rico rcio");
             var url = "listarTareas";
 
             this.listar();
@@ -283,8 +286,6 @@
             //    ["id_Tarea", "nombre", "codigoMaquina", "periodicidad", "prioridad", "fechaInicio"],
             //    "Id_Tarea", "MantenimientoPreventivo", false ,true, "tbDatos","table","",false);
         }
-
-
 
         function listar() {
             var url = "/mantenimientoPreventivo/listarTarea";
@@ -317,7 +318,7 @@
         }
 
 
-        function AbrirSubPopupNombreSede() {
+        function AbrirSubPopupSuministros() {
             nombreTabla = "Suministro";
             document.getElementById("lblSubPopup").innerHTML = "Buscar Suministros";
             //pintar("Sede/listarSede",
@@ -330,7 +331,18 @@
                 "id_Suministro", "nombre");
         }
 
-
+          function AbrirSubPopupTecnicos(){
+            nombreTabla = "Tecnico";
+            document.getElementById("lblSubPopup").innerHTML = "Buscar Técnico";
+            //pintar("Sede/listarSede",
+            //	["iidSede", "nombreSede"], "iidSede",
+            //	"Sede", false, false, "tbDatosPopup", "tablaPopup", "nombreSede")
+            // document.getElementById("txtnc").value = ""; //filtro de busqueda
+              var url = "/Suministros/listarTecnico"
+            pintarMultiplePopup("divTabla", url,
+                ["Id", "Nombre Tecnico"], ["id_Tecnico", "nombre"],
+                "id_Tecnico", "nombre");
+        }
 
         function AsignarNombre(id, nom) {
             //alert(id + "-" + nom);
@@ -347,34 +359,10 @@
             document.getElementById("btnCerrarPopup").click();
         }
 
-        function Guardar() {
-            var frm = new FormData();
-            enviar(frm);
-            $.ajax({
-                type: "POST",
-                url: "guardarDatos",
-                data: frm,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    if (data == "OK") {
-                        correcto("¡Se guardo el Plan de mantenimiento con Exito!");
-                        document.getElementById("btnCerrar").click();
-                        var url = "listarPlan";
-                        listar();
-                    } else {
-                        error("¡Ocurrio un error al guardar!")
-                        document.getElementById("divError").innerHTML = data;
-                    }
-                }
-            })
-        }
-
-
-
-        function cargarSuministrosSeleccionados() {
+        function cargarRecursosSeleccionados(nombreTabla) {
+            
             var cb = "";
-            var suministroSeleccionado = false;
+            var recursoSeleccionado = false;
             var datos = [];
             if (idcbs == null || idcbs == undefined) {
             } else if (idcbs == []) {
@@ -387,123 +375,100 @@
 
                     if (idcb.checked) {
                         datos.push([idcbs[i], idcb.value])
-                        suministroSeleccionado = true;
+                        recursoSeleccionado = true;
                     }
-                    //traer cb checkeds
-                    //invocar a listarSuministros del back
-                    //mostrarlos en el modal
                 }
             }
 
-            if (suministroSeleccionado)
-            {
-                pintarGrillaModal("divTbSumnistros", datos , ["Id", "Nombre Suministro"], ["id_Suministro", "nombre"],
-                    "id_Suministro", "nombre");
+            if (recursoSeleccionado) {
+                if (nombreTabla == "Tecnico") {
+                    pintarGrillaModal("divTbTecnicos", datos, ["Id", "Nombre Técnico"], ["id_Tecnico", "nombre"],
+                        "id_Tecnico", "tablaTecnicos");
+                }
+                if (nombreTabla == "Suministro") {
+                    pintarGrillaModal("divTbSumnistros", datos, ["Id", "Nombre Suministro"], ["id_Suministro", "nombre"],
+                        "id_Suministro", "tablaSuministros");
+                }
             }
         }
 
-        function pintarGrillaModal(divTabla = "", data = [],cabeceras = ["Id", "Nombre Completo"],
-            campos, propiedadId, propiedadMostrar = "") {
 
-            var contenido = "";
-            var id = [];
-
-         
-                //Esto
-                contenido += "<table id='tablaRecursos' class = 'tablasubPopup' >";
-                contenido += "<thead class='thead-dark'>";
-                contenido += "<tr>";
-                for (var i = 0; i < cabeceras.length; i++) {
-                    contenido += "<th>" + cabeceras[i] + "</th>"
-                }
-                contenido += "<th></th>";
-                contenido += "</tr>";
-                contenido += "</thead>";
-                contenido += "<tbody>";
-                var objetoActual;
-                for (var i = 0; i < data.length; i++) {
-                    contenido += "<tr>";
-                    for (var j = 0; j < campos.length; j++) {
-                        nombreCampo = campos[j];
-                        objetoActual = data[i];
-                        contenido += "<td>" + objetoActual[j] + "</td>"
+        function Guardar() {
+            var frm = new FormData();
+            enviar(frm, true);
+            $.ajax({
+                type: "POST",
+                url: "/MantenimientoPreventivo/guardarTarea",
+                data: frm,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data == "OK") {
+                        correcto("¡Se guardo la Tarea con Exito!");
+                        document.getElementById("btnCerrar").click();
+                        var url = "listarPlan";
+                        listar();
+                    } else {
+                        error("¡Ocurrio un error al guardar!")
+                        document.getElementById("divError").innerHTML = data;
                     }
-                 
-                    contenido += `
-					<td>
-				      	<i class="fa fa-remove btn btn-outline-danger" aria-hidden="true"
-						   onclick="Eliminar(${objetoActual[propiedadId]})">
-						</i>
-					</td>`;
-
-                    contenido += "</tr>";
                 }
-                contenido += "</tbody>";
-                contenido += "</table>";
-                document.getElementById(divTabla).innerHTML = contenido;
-            $('#tablaRecursos').DataTable();
-
-            document.getElementById("tablaRecursos_length").style.display = 'none';
-            
-
-
+            })
         }
 
+                //function Limpiar() {
+                //    document.getElementById("nombre").value = "";
+                //    //document.getElementById("frmFormulario").submit();
+                //    var url = "Doctor/listarDoctor";
+                //    pintar(url,
+                //        ["nombreCompleto", "especialidad", "nombreSede"],
+                //        "iidDoctor", "Doctor", true);
+                //}
+
+                //function Eliminar(id) {
+
+                //    mostrarModal().then(res => {
+                //        if (res.value) {
+                //            //var frmEnviarEliminar = document.getElementById("frmEnviarEliminar");
+                //            //frmEnviarEliminar.submit();
+                //            $.get("Doctor/eliminar/?id=" + id, function (rpta) {
+
+                //                if (rpta == 1) {
+                //                    correcto("Se elimino correctamente la especialidad");
+                //                    listar();
+                //                } else {
+                //                    error("Ocurrio un error al eliminar");
+                //                }
+                //            })
+                //        }
+
+                //    })
+
+                //}
 
 
-            //function Limpiar() {
-            //    document.getElementById("nombre").value = "";
-            //    //document.getElementById("frmFormulario").submit();
-            //    var url = "Doctor/listarDoctor";
-            //    pintar(url,
-            //        ["nombreCompleto", "especialidad", "nombreSede"],
-            //        "iidDoctor", "Doctor", true);
-            //}
-
-            //function Eliminar(id) {
-
-            //    mostrarModal().then(res => {
-            //        if (res.value) {
-            //            //var frmEnviarEliminar = document.getElementById("frmEnviarEliminar");
-            //            //frmEnviarEliminar.submit();
-            //            $.get("Doctor/eliminar/?id=" + id, function (rpta) {
-
-            //                if (rpta == 1) {
-            //                    correcto("Se elimino correctamente la especialidad");
-            //                    listar();
-            //                } else {
-            //                    error("Ocurrio un error al eliminar");
-            //                }
-            //            })
-            //        }
-
-            //    })
-
-            //}
-
-
-            //function Abrir(id) {
-            //    LimpiarDatos();
-            //    document.getElementById("divError").innerHTML = "";
-            //    if (id != 0) {
-            //        document.getElementById("lblTitulo").innerHTML = "Editar Plan de Mantenimiento";
-            //        $.get("Doctor/recuperarDoctor/?id=" + id, function (data) {
-            //            obj("txtIdDoctor", data.iidDoctor);
-            //            obj("txtIdPersonaPopup", data.iidPersona);
-            //            obj("txtNombrePersonaPopup", data.nombreCompleto);
-            //            obj("iidSede", data.iidSede);
-            //            obj("iidEspecialidad", data.iidEspecialidad);
-            //            obj("txtSueldo", data.sueldo);
-            //            obj("dtFechaContrato", data.fechaContratoCadena);
-            //            obj("txtNombreSedePopup", data.nombreSede);
-            //            obj("txtNombreEspecialidadPopup", data.especialidad);
-            //        });
-            //        document.getElementById("divPersona").style.display = "none";
-            //    } else {
-            //        // document.getElementById("divPersona").style.display = "block";
-            //        document.getElementById("lblTitulo").innerHTML = "Agregar Plan de Mantenimiento";
-            //    }
-            //}
+                //function Abrir(id) {
+                //    LimpiarDatos();
+                //    document.getElementById("divError").innerHTML = "";
+                //    if (id != 0) {
+                //        document.getElementById("lblTitulo").innerHTML = "Editar Plan de Mantenimiento";
+                //        $.get("Doctor/recuperarDoctor/?id=" + id, function (data) {
+                //            obj("txtIdDoctor", data.iidDoctor);
+                //            obj("txtIdPersonaPopup", data.iidPersona);
+                //            obj("txtNombrePersonaPopup", data.nombreCompleto);
+                //            obj("iidSede", data.iidSede);
+                //            obj("iidEspecialidad", data.iidEspecialidad);
+                //            obj("txtSueldo", data.sueldo);
+                //            obj("dtFechaContrato", data.fechaContratoCadena);
+                //            obj("txtNombreSedePopup", data.nombreSede);
+                //            obj("txtNombreEspecialidadPopup", data.especialidad);
+                //        });
+                //        document.getElementById("divPersona").style.display = "none";
+                //    } else {
+                //        // document.getElementById("divPersona").style.display = "block";
+                //        document.getElementById("lblTitulo").innerHTML = "Agregar Plan de Mantenimiento";
+                //    }
+                //}
 
     </script>
 }

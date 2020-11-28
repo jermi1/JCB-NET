@@ -60,5 +60,29 @@ namespace JCB_NET.Areas.MantenimientoPreventivo.Controllers
 
             return listaSuministro;
         }
+
+        
+        public List<TecnicoMO> listarTecnico()
+        {
+            List<TecnicoMO> listaTecnico = new List<TecnicoMO>();
+
+           
+                listaTecnico = (from tecnico in db.Tecnico
+                                  /* join bodega in db.Bodega
+                                   on suministro.Id_Bodega equals
+                                   bodega.Id_Bodega 
+                                   where suministro.Id_Bodega == 1
+                                    */
+                                   select new TecnicoMO
+                                   {
+                                       Id_Tecnico = tecnico.Id_Tecnico,
+                                       Nombre = tecnico.ApePaterno + ", " + tecnico.Nombre
+                                   }).ToList();
+                ViewBag.nombreSuministro = "";
+            
+   
+
+            return listaTecnico;
+        }
     }
 }
